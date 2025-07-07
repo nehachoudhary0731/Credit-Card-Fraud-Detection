@@ -3,7 +3,7 @@ import numpy as np
 import joblib
 import os
 
-# --- PAGE CONFIG ---
+#  PAGE CONFIG 
 st.set_page_config(
     page_title="Credit Card Fraud Detector",
     page_icon="🚨",
@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- LOAD MODEL ---
+#  LOAD MODEL
 MODEL_PATH = 'credit_card_model.pkl'
 if os.path.exists(MODEL_PATH):
     model = joblib.load(MODEL_PATH)
@@ -19,18 +19,18 @@ else:
     st.error("❌ Model file not found. Please ensure 'credit_card_model.pkl' exists.")
     st.stop()
 
-# --- SESSION STATE SETUP ---
+#  SESSION STATE SETUP 
 if "user_input" not in st.session_state:
     st.session_state.user_input = ""
 if "clear_input" not in st.session_state:
     st.session_state.clear_input = False
 
-# --- HANDLE CLEAR BEFORE WIDGET RENDERS ---
+#  CLEAR BEFORE WIDGET RENDERS 
 if st.session_state.clear_input:
     st.session_state.user_input = ""
     st.session_state.clear_input = False
 
-# --- CUSTOM STYLING ---
+#  CUSTOM STYLING 
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
@@ -104,15 +104,15 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- TITLE ---
+#  TITLE 
 st.markdown('<div class="title-style">Credit Card Fraud Detection</div>', unsafe_allow_html=True)
 st.markdown('<div class="subtitle-style">Detect fraudulent transactions in real time using AI 🔍</div>', unsafe_allow_html=True)
 
-# --- INSTRUCTIONS ---
+#  INSTRUCTIONS 
 with st.expander("📘 Instructions", expanded=False):
     st.markdown("• Enter exactly **29 comma-separated numerical values** (the transaction features).")
 
-# --- INPUT SECTION ---
+# INPUT SECTION 
 st.markdown("### 🔢 Enter Transaction Data")
 user_input = st.text_input(
     label="",
@@ -121,7 +121,7 @@ user_input = st.text_input(
     placeholder="-1.23, 2.45, ..., 85.90"
 )
 
-# --- BUTTONS ---
+#  BUTTONS 
 col1, col2 = st.columns([1, 1])
 with col1:
     predict_btn = st.button("🔍 Predict Result")
@@ -130,7 +130,7 @@ with col2:
         st.session_state.clear_input = True
         st.rerun()
 
-# --- HANDLE PREDICTION ---
+#  HANDLE PREDICTION 
 if predict_btn:
     try:
         input_list = [float(i.strip()) for i in st.session_state.user_input.split(',')]
@@ -155,7 +155,7 @@ if predict_btn:
                     </div>
                 """, unsafe_allow_html=True)
 
-            # Show prediction probabilities
+            # prediction probabilities
             if hasattr(model, "predict_proba"):
                 proba = model.predict_proba(input_array)[0]
                 st.progress(proba[1], text=f"Fraud Probability: {proba[1]:.2%}")
