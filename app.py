@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-#  LOAD MODEL
+#  LOAD MODEL (which I already dump)
 MODEL_PATH = 'credit_card_model.pkl'
 if os.path.exists(MODEL_PATH):
     model = joblib.load(MODEL_PATH)
