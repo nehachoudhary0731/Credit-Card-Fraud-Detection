@@ -6,7 +6,6 @@ import os
 #  PAGE CONFIG 
 st.set_page_config(
     page_title="Credit Card Fraud Detector",
-    page_icon="🚨",
     layout="centered",
     initial_sidebar_state="collapsed"
 )
@@ -16,7 +15,7 @@ MODEL_PATH = 'credit_card_model.pkl'
 if os.path.exists(MODEL_PATH):
     model = joblib.load(MODEL_PATH)
 else:
-    st.error("❌ Model file not found. Please ensure 'credit_card_model.pkl' exists.")
+    st.error(" Model file not found. Please ensure 'credit_card_model.pkl' exists.")
     st.stop()
 
 #  SESSION STATE SETUP 
@@ -109,11 +108,11 @@ st.markdown('<div class="title-style">Credit Card Fraud Detection</div>', unsafe
 st.markdown('<div class="subtitle-style">Detect fraudulent transactions in real time using AI 🔍</div>', unsafe_allow_html=True)
 
 #  INSTRUCTIONS 
-with st.expander("📘 Instructions", expanded=False):
+with st.expander(" Instructions", expanded=False):
     st.markdown("• Enter exactly **29 comma-separated numerical values** (the transaction features).")
 
 # INPUT SECTION 
-st.markdown("### 🔢 Enter Transaction Data")
+st.markdown("### Enter Transaction Data")
 user_input = st.text_input(
     label="",
     value=st.session_state.user_input,
@@ -126,7 +125,7 @@ col1, col2 = st.columns([1, 1])
 with col1:
     predict_btn = st.button("🔍 Predict Result")
 with col2:
-    if st.button("🧹 Clear Input"):
+    if st.button(" Clear Input"):
         st.session_state.clear_input = True
         st.rerun()
 
@@ -135,7 +134,7 @@ if predict_btn:
     try:
         input_list = [float(i.strip()) for i in st.session_state.user_input.split(',')]
         if len(input_list) != 29:
-            st.error("❗ Please enter exactly 29 values.")
+            st.error(" Please enter exactly 29 values.")
         else:
             input_array = np.array([input_list])
             prediction = model.predict(input_array)
@@ -144,14 +143,14 @@ if predict_btn:
                 st.markdown("""
                     <div class="fraud-box">
                         <div class="predict-label">Prediction:</div>
-                        <div class="predict-text red-text">🚨 Fraudulent Transaction</div>
+                        <div class="predict-text red-text"> Fraudulent Transaction</div>
                     </div>
                 """, unsafe_allow_html=True)
             else:
                 st.markdown("""
                     <div class="result-box">
                         <div class="predict-label">Prediction:</div>
-                        <div class="predict-text green-text">✅ Legitimate Transaction</div>
+                        <div class="predict-text green-text"> Legitimate Transaction</div>
                     </div>
                 """, unsafe_allow_html=True)
 
@@ -162,6 +161,6 @@ if predict_btn:
                 st.caption(f"Legitimate: {proba[0]:.2%} | Fraudulent: {proba[1]:.2%}")
 
     except ValueError:
-        st.error("❌ Invalid input. Ensure all values are numeric and comma-separated.")
+        st.error(" Invalid input. Ensure all values are numeric and comma-separated.")
     except Exception as e:
         st.error(f"Unexpected error: {str(e)}")
