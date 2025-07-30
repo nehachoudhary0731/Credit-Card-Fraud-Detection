@@ -24,7 +24,7 @@ if "user_input" not in st.session_state:
 if "clear_input" not in st.session_state:
     st.session_state.clear_input = False
 
-#  CLEAR BEFORE WIDGET RENDERS 
+#  CLEAR 
 if st.session_state.clear_input:
     st.session_state.user_input = ""
     st.session_state.clear_input = False
